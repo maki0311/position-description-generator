@@ -1,139 +1,143 @@
-# 📝 Federal Position Description Generator
+# Federal Position Description Generator
 
-A Spring Boot web application that generates federal position descriptions using OpenAI and USAJobs API integration.
+An AI-powered web application built with Java and Spring Boot that helps users create, analyze, and update federal government position descriptions (PDs). The application integrates OpenAI and the USAJOBS API to assist with position classification, duty statement refinement, and the development of structured position description documents.
 
----
+## Features
 
-## 📦 Requirements
+- **Guided PD Creation:** A five-step wizard guides users through the position description development process.
+- **Existing PD Revision:** Update and refine existing position descriptions based on revised duties, responsibilities, and position requirements.
+- **AI-Powered Classification:** Generate recommendations for occupational series and grade based on position duties and requirements.
+- **Duty Statement Rewriting:** Use AI to improve the clarity and quality of position duty statements.
+- **Federal Classification Support:** Support Factor Evaluation System (FES) and General Schedule Supervisory Guide (GSSG) evaluation workflows.
+- **USAJOBS Integration:** Retrieve federal job information through the USAJOBS API.
+- **PDF Generation:** Generate formatted position description documents.
+- **REST API:** Backend endpoints support PD generation, series recommendations, duty rewriting, and USAJOBS data retrieval.
 
-- **Java 17+**
-- **Maven 3.6+**
-- **OpenAI API Key** ([Get one here](https://openai.com/api/))
-- **USAJobs API Credentials** ([Register here](https://developer.usajobs.gov/APIRequest/Index))
-- **8+ GB RAM** recommended
+## Tech Stack
 
----
+| Technology | Purpose |
+|---|---|
+| Java 17 | Backend development |
+| Spring Boot 3.x | Application framework and REST APIs |
+| JavaScript | Frontend functionality |
+| HTML5 and CSS3 | User interface and styling |
+| OpenAI API | AI-powered content generation and revision |
+| USAJOBS API | Federal job information retrieval |
+| Apache PDFBox | PDF processing and generation |
+| Maven | Build and dependency management |
 
-## 🚀 Quick Start
+## Requirements
 
-### 1. Clone Repository
+- Java 17 or later
+- Maven 3.6 or later
+- OpenAI API key
+- USAJOBS API credentials
+- Internet connection for external API integrations
+
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/maki0311/positiondescriptiongenerator.git
 cd positiondescriptiongenerator
 ```
 
-### 2. Configure API Keys
+### 2. Configure API Credentials
 
-Edit `src/main/resources/application.properties`:
+Configure the required API credentials using the property names expected by the application.
+
+In `src/main/resources/application.properties`, the relevant settings include:
 
 ```properties
-# Server
 server.port=8080
-
-# OpenAI
-OPENAI_API_KEY = your openai api key
-
-# USAJobs API
-
-USAJOBS_USER_AGENT = your usajobs email
-USAJOBS_API_KEY = your usajobs api key
+OPENAI_API_KEY=your_openai_api_key
+USAJOBS_USER_AGENT=your_email_address
+USAJOBS_API_KEY=your_usajobs_api_key
 ```
 
-### 3. Run Application
+Replace the placeholder values with your own credentials.
+
+**Security:** Never commit real API keys or other secrets to GitHub. Keep personal credentials in a local configuration file excluded from version control, or use environment variables if supported by the application.
+
+- [OpenAI API](https://openai.com/api/)
+- [USAJOBS API Registration](https://developer.usajobs.gov/APIRequest/Index)
+
+### 3. Build and Run the Application
+
+Build the project:
 
 ```bash
 mvn clean install
+```
+
+Start the Spring Boot application:
+
+```bash
 mvn spring-boot:run
 ```
 
-### 4. Open Browser
+### 4. Open the Application
 
-```
-http://localhost:8080
-```
+Navigate to:
 
----
+[http://localhost:8080](http://localhost:8080)
 
-## 🎯 Features
-
-- **5-Step Wizard** - Guided PD creation process
-- **AI-Powered Analysis** - Automatic job series and grade recommendations
-- **USAJobs Integration** - Real-time federal job data
-- **FES/GSSG Classification** - Dual evaluation systems for GS grades
-- **PDF Generation** - Professional federal PD format
-- **Duty Rewriter** - AI-enhanced duty statements
-
----
-
-## 🔌 Main API Endpoints
+## Main API Endpoints
 
 | Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/generate-pd` | POST | Generate complete PD |
-| `/api/recommend-series` | POST | Get job series from duties |
-| `/api/rewrite-duties` | POST | AI rewrite duty statements |
-| `/api/proxy/usajobs` | GET | Fetch USAJobs data |
+|---|---|---|
+| `/api/generate-pd` | POST | Generate a complete position description |
+| `/api/recommend-series` | POST | Recommend an occupational series based on position duties |
+| `/api/rewrite-duties` | POST | Rewrite and refine duty statements using AI |
+| `/api/proxy/usajobs` | GET | Retrieve USAJOBS data through the application backend |
 
----
+## Project Structure
 
-## 📁 Project Structure
+```text
+src/main/
+├── java/com/example/pdgenerator/
+│   ├── PdGeneratorApplication.java
+│   ├── controller/
+│   │   └── PdGeneratorController.java
+│   └── service/
+│       ├── PdService.java
+│       └── PdfProcessingService.java
+├── resources/
+│   ├── application.properties
+│   └── pdfs/
+└── public/
+    ├── index.html
+    ├── PD_Script.js
+    └── styles.css
 
+pom.xml
 ```
-Allen_Management_Group/
-├── src/main/
-│   ├── java/com/example/pdgenerator/
-│   │   ├── PdGeneratorApplication.java
-│   │   ├── controller/PdGeneratorController.java
-│   │   ├── service/PdService.java
-│   │   └── service/PdfProcessingService.java
-│   ├── resources/
-│   │   ├── application.properties
-│   │   └── pdfs/
-│   └── public/
-│       ├── index.html
-│       ├── PD_Script.js
-│       └── styles.css
-└── pom.xml
-```
 
----
+## Troubleshooting
 
-## 🛠️ Tech Stack
+**Application fails to start**
+- Verify that Java 17 or later is installed.
+- Confirm that Maven is installed and dependencies resolve successfully.
+- Check that port 8080 is available.
+- Verify that the application configuration is correct.
 
-- **Backend**: Spring Boot 3.x, Java 17
-- **Frontend**: Vanilla JavaScript, HTML5, CSS3
-- **AI**: OpenAI gpt-4
-- **APIs**: USAJobs, REST
-- **PDF**: Apache PDFBox
+**AI requests fail**
+- Confirm that the OpenAI API key is valid.
+- Check API account access, usage limits, and billing.
+- Review application logs for errors.
 
----
+**USAJOBS data is unavailable**
+- Verify the USAJOBS API key and registered user-agent email.
+- Check the USAJOBS API service status and applicable request limits.
+- Review the application logs for failed requests.
 
-## 🐛 Troubleshooting
+## License and Usage
 
-**App won't start?**
-- Check Java version: `java -version` (need 17+)
-- Verify API keys in `application.properties`
-- Ensure port 8080 is available
+Provided as-is. No formal open-source license is specified unless a separate license file is included in the repository.
 
-**AI requests fail?**
-- Verify OpenAI API key is valid
-- Check internet connection
-- Review console logs
+## Version
 
-**No USAJobs data?**
-- Confirm USAJobs API key and user agent
-- Check rate limits (1000/hour)
-
----
-
-## 📄 License
-
-Provided as-is for federal government use.
-
----
-
-**Version**: 1.0.0
-**Last Updated**: October 2025
-
+**Version:** 1.0.0  
+**Last documented update:** October 2025
 
